@@ -10,16 +10,14 @@ Nous avons commencé par importer les bibliothèques essentielles telles que PyT
 Problème rencontré : Initialement, nous avons tenté d’utiliser une autre version de GPT-2 (gpt2-medium) mais avons rencontré des problèmes de mémoire GPU, nous obligeant à revenir à la version "small".
 
 2. Implémentation de GPT-2 Small et Tests Initiaux
-Nous avons chargé le modèle GPT-2 Small et testé sa génération de texte avec une question basique.
-
-Observations :
+Nous avons donc chargé le modèle GPT-2 Small et testé sa génération de texte avec une question basique.
 
 Les réponses étaient souvent répétitives et non structurées.
 L’absence d’instruction claire dans les prompts affectait la pertinence des réponses.
 Le modèle ne semblait pas bien comprendre les intentions des utilisateurs.
-Hypothèse : L’ajout d’un dataset spécialisé en instruction pourrait améliorer le comportement du modèle.
+Nous avons donc pensé que l’ajout d’un dataset spécialisé en instruction pourrait améliorer le comportement du modèle.
 
-3. Préparation et Exploration du Dataset
+4. Préparation et Exploration du Dataset
 Nous avons utilisé le dataset Stanford Alpaca contenant des paires (instruction, input, output).
 
 Étapes suivies :
@@ -28,11 +26,7 @@ Nettoyage des données (suppression des doublons et gestion des valeurs manquant
 Réduction du dataset : Pour des raisons de temps d’entraînement, nous avons sélectionné seulement 10% des données.
 Fractionnement en ensembles d’entraînement (85%), validation (10%) et test (5%).
 
-Premiers tests :
-
-Génération de réponses plus cohérentes, mais parfois hors contexte.
-Besoin d’améliorer la gestion des instructions complexes.
-Solution envisagée : Introduire une mise en forme plus rigoureuse des données en encodant chaque entrée sous une structure claire.
+Lors de nos premiers test, le modèle générait des réponse relativement cohérente, mais parfois hors contexte. Il fallait donc trouver un moyen d'améliorer la gestion des instructions complexes. Pour cela, nous avons pensé à introduire une mise en forme plus rigoureuse des données en encodant chaque entrée sous unr strucrure plus claire.
 
 4. Fine-Tuning du Modèle GPT-2
 Nous avons mis en place un entraînement supervisé en utilisant les instructions formatées comme entrée du modèle.
@@ -51,10 +45,10 @@ Perplexité (PPL) : Permet de mesurer la qualité du modèle sur le texte géné
 Résultat final : 3.37 (correct mais améliorable).
 
 Accuracy Token-Level : Mesure le taux de prédiction correcte des tokens.
-Résultat : Erreur due à une mauvaise gestion des labels (-100 pour le padding), corrigée ensuite.
+Résultat : 40.42 %
 
 BLEU Score : Pour mesurer la similarité entre le texte généré et la réponse attendue.
-Erreur d’importation de load_metric, nécessitant une mise à jour de la librairie datasets.
+
 
 Problèmes identifiés et solutions :
 
